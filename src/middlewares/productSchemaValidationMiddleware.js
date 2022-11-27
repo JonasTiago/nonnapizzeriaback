@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { productSchema } from "../models/productModel";
+import { productSchema } from "../models/productModel.js";
 
 export function productSchemaValidation(req, res, next) {
   const { name, price, description, type, quantity } = res.body;

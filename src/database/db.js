@@ -1,6 +1,6 @@
 import { MongoClient } from "mongodb";
 import dotenv from "dotenv";
-import { watch } from "fs/promises";
+dotenv.config();
 
 const mongoClient = new MongoClient(process.env.MONGO_URI);
 
@@ -12,3 +12,4 @@ try {
 }
 
 const db = mongoClient.db("nonnaPizzeria");
+export const productCollection = db.collection("products");
