@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import { productSchema } from "../models/productModel.js";
 
 export function productSchemaValidation(req, res, next) {
-  const { name, price, description, type, quantity } = res.body;
+  const { name, price, description, type, quantity } = req.body;
 
   const product = {
     name,
@@ -10,7 +10,6 @@ export function productSchemaValidation(req, res, next) {
     description,
     type,
     quantity,
-    createDate: dayjs().format("DD/MM/YYYY"),
   };
 
   const { error } = productSchema.validate(product, { abortEarly: false });
