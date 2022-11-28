@@ -19,3 +19,7 @@ export async function findProducts(req, res) {
   const { products } = res.locals;
   res.status(200).send(products);
 }
+
+export async function saleProducts(req, res){
+  
+}
