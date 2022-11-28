@@ -2,7 +2,7 @@ import { ObjectId } from "mongodb";
 import { productCollection } from "../database/db.js";
 
 export async function saleValidation(req, res, next) {
-  const { products, priceTotal } = req.body;
+  const { products, priceTotal, payment } = req.body;
   const userId = res.locals.user_id;
 
   products.forEach(async (product) => {
