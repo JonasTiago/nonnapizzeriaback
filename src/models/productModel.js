@@ -7,3 +7,5 @@ export const productSchema = joi.object({
   type: joi.string().required().valid("Pizzas", "Sobremesas", "Bebidas"),
   quantity: joi.number().required(),
 });
+
+export const typeSchema = joi.object({type: joi.string().valid("Pizzas", "Sobremesas", "Bebidas"),}) 
