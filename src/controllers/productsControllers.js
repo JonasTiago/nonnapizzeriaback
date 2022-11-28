@@ -1,4 +1,4 @@
-import { productCollection } from "../database/db.js";
+import { productCollection, saleCollection } from "../database/db.js";
 
 export async function createProducts(req, res) {
   const product = res.locals.product;
@@ -20,6 +20,22 @@ export async function findProducts(req, res) {
   res.status(200).send(products);
 }
 
-export async function saleProducts(req, res){
-  
+export async function saleProducts(req, res) {
+  const sale = res.locals.sale;
+
+  try {
+    await saleCollection.insertOne(sale);
+
+    sale.products.forEach(async (product) => {
+      await productCollection.updateOne(
+        { _id: product.id },
+        { quantity: -product.quantity }
+      );
+      
+      res.sendStatus(201);
+    });
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
 }

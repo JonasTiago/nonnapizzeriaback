@@ -27,7 +27,7 @@ export async function saleValidation(req, res, next) {
             user_id,
           };
 
-          res.locals.sale = sale
+        res.locals.sale = sale
 
     } catch (err) {
       console.log(err);

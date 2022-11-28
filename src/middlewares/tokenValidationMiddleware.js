@@ -1,3 +1,5 @@
+import { sessionsCollection } from "../database/db";
+
 export async function tokenValidation(req, res, next) {
     const { authorization } = req.headers;
     const token = authorization?.replace("Bearer ", "");
@@ -6,7 +8,7 @@ export async function tokenValidation(req, res, next) {
   
     try {
       const user = await sessionsCollection.findOne({ token });
-      if (!user) return res.sendStatus(401);
+      if (!user) return res.sendStatuss(401);
   
       res.locals.user_id = user.id;
     } catch (err) {
