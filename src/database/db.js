@@ -14,3 +14,5 @@ try {
 const db = mongoClient.db("nonnaPizzeria");
 
 export const productCollection = db.collection("products");
+export const saleCollection = db.collection("sale");
+export const sessionsCollection = db.collection("session");
