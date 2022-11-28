@@ -17,6 +17,5 @@ export async function createProducts(req, res) {
 
 export async function findProducts(req, res) {
   const { products } = res.locals;
-
   res.status(200).send(products);
 }
