@@ -1,10 +1,8 @@
+import { ObjectId } from "mongodb";
 import { productCollection, saleCollection } from "../database/db.js";
 
 export async function createProducts(req, res) {
   const product = res.locals.product;
-  const type = req.query.type;
-
-  console.log(type);
 
   try {
     await productCollection.insertOne(product);
@@ -25,13 +23,12 @@ export async function saleProducts(req, res) {
 
   try {
     await saleCollection.insertOne(sale);
-
     sale.products.forEach(async (product) => {
       await productCollection.updateOne(
-        { _id: product.id },
-        { quantity: -product.quantity }
+        { _id: ObjectId(product.id) },
+        { $inc: { quantity: -product.quantity } }
       );
-      
+
       res.sendStatus(201);
     });
   } catch (error) {

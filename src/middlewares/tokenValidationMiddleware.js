@@ -1,4 +1,4 @@
-import { sessionsCollection } from "../database/db";
+import { sessionsCollection } from "../database/db.js";
 
 export async function tokenValidation(req, res, next) {
     const { authorization } = req.headers;

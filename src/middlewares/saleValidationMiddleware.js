@@ -1,39 +1,34 @@
-import { productCollection } from "../database/db";
+import { ObjectId } from "mongodb";
+import { productCollection } from "../database/db.js";
 
 export async function saleValidation(req, res, next) {
   const { products, priceTotal } = req.body;
-  const user_id = res.locals.user_id;
+  const userId = /*res.locals.user_id*/ 123456;
 
-  products.forEach( async (product) => {
+  products.forEach(async (product) => {
     try {
-        const productAvailable = await productCollection.find({id:product.id}).toArray()
-        
-        if(!productAvailable) return res.sendStatus(404)
+      const productAvailable = await productCollection.findOne({
+        _id: ObjectId(product.id),
+      });
+      console.log(parseInt(product.quantity));
+      console.log(parseInt(productAvailable.quantity));
 
-        if(product.quantity > productAvailable.quantity) return res.sendStatus(404)
+      if (!productAvailable) return res.sendStatus(404);
 
-        const sale = {
-            products: [
-              {
-                id,
-                quantity,
-              },
-              {
-                id,
-                quantity,
-              },
-            ],
-            priceTotal,
-            user_id,
-          };
-
-        res.locals.sale = sale
-
+      if (parseInt(product.quantity) > parseInt(productAvailable.quantity))
+        return res.sendStatus(404);
     } catch (err) {
       console.log(err);
       res.sendStatus(500);
     }
   });
+  const sale = {
+    products,
+    priceTotal,
+    userId,
+  };
 
-  next()
+  res.locals.sale = sale;
+
+  next();
 }

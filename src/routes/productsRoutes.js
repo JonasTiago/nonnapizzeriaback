@@ -13,6 +13,6 @@ const router = Router();
 
 router.post("/products", productSchemaValidation, createProducts);
 router.get("/products", typeValidation, findProducts);
-router.put("/products/sale", tokenValidation, saleValidation, saleProducts);
+router.post("/products/sale", tokenValidation, saleValidation, saleProducts);
 
 export default router;
